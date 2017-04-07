@@ -11,8 +11,14 @@ import UIKit
  滴滴验证码的逻辑
  不允许用户点击，顺序已经定死，可以用删除键回退，最后一个输完自动登陆
  */
+
+protocol SwiftyVerificationCodeViewDelegate {
+    func verificationCodeDidFinishedInput(code:String)
+}
 class SwiftyVerificationCodeView: UIView {
     
+    /// 代理回调
+    var delegate:SwiftyVerificationCodeViewDelegate?
     
     /// 一堆框框的数组
     var textfieldarray = [UITextField]()
@@ -68,7 +74,6 @@ extension SwiftyVerificationCodeView{
         
         textfieldarray.first?.becomeFirstResponder()
         
-        
     }
     
     private func createTextField(frame:CGRect)->UITextField{
@@ -113,6 +118,13 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
                 break
             case 3:
                 textfieldarray[3].text = string
+                // 拼接结果
+                var code = ""
+                for tv in textfieldarray{
+                    code += tv.text ?? ""
+                }
+                delegate?.verificationCodeDidFinishedInput(code: code)
+                
             default:
                 return false
             }
