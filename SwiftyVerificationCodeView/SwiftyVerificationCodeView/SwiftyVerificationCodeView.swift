@@ -13,12 +13,10 @@ import UIKit
  */
 class SwiftyVerificationCodeView: UIView {
     
-    var firsttv:UITextField?
-    var secondtv:UITextField?
-    var thirdtv:UITextField?
-    var forthtv:UITextField?
-
     
+    /// 一堆框框的数组
+    var textfieldarray = [UITextField]()
+
     /// 框框之间的间隔
     let margin:CGFloat = 10
     
@@ -53,18 +51,24 @@ extension SwiftyVerificationCodeView{
      
         let leftmargin = (UIScreen.main.bounds.width - width * 4 - 3 * margin) / 2
         
-        // 创建 4个 UITextFiedl
-        firsttv = createTextField(frame: CGRect(x: leftmargin, y: 10, width: width, height: width))
-        firsttv?.becomeFirstResponder()
-        firsttv?.tag = 0
-        secondtv =  createTextField(frame: CGRect(x: leftmargin + width + margin, y: 10, width: width, height: width))
-        secondtv?.tag = 1
-        thirdtv = createTextField(frame: CGRect(x: leftmargin + 2*width + 2*margin, y: 10, width: width, height: width))
-        thirdtv?.tag = 2
-        forthtv = createTextField(frame: CGRect(x: leftmargin + 3*width + 3*margin, y: 10, width: width, height: width))
-        forthtv?.tag = 3
+        // 创建 n个 UITextFiedl
+        for i in 0..<numOfRect{
+            
+            let rect = CGRect(x: leftmargin + CGFloat(i)*width + CGFloat(i)*margin, y: 10, width: width, height: width)
+            let tv = createTextField(frame: rect)
+            tv.tag = i
+            textfieldarray.append(tv)
+            
+        }
         
-        firsttv?.becomeFirstResponder()
+        // 防止搞事
+        if numOfRect < 1 {
+            return
+        }
+        
+        textfieldarray.first?.becomeFirstResponder()
+        
+        
     }
     
     private func createTextField(frame:CGRect)->UITextField{
@@ -96,19 +100,19 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
             textField.resignFirstResponder()
             switch textField.tag {
             case 0:
-                firsttv?.text = string
-                secondtv?.becomeFirstResponder()
+                textfieldarray[0].text = string
+                textfieldarray[1].becomeFirstResponder()
                 break
             case 1:
-                secondtv?.text = string
-                thirdtv?.becomeFirstResponder()
+                textfieldarray[1].text = string
+                textfieldarray[2].becomeFirstResponder()
                 break
             case 2:
-                thirdtv?.text = string
-                forthtv?.becomeFirstResponder()
+                textfieldarray[2].text = string
+                textfieldarray[3].becomeFirstResponder()
                 break
             case 3:
-                forthtv?.text = string
+                textfieldarray[3].text = string
             default:
                 return false
             }
@@ -120,23 +124,19 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
     
     /// 监听键盘删除键
     func didClickBackWard() {
-        
-        guard let secondtv = secondtv,let thirdtv = thirdtv,let forthtv = forthtv else {
-            return
-        }
-        
-        if secondtv.isFirstResponder {
-            self.firsttv?.text = ""
-            secondtv.resignFirstResponder()
-            self.firsttv?.becomeFirstResponder()
-        }else if thirdtv.isFirstResponder{
-            self.secondtv?.text = ""
-            thirdtv.resignFirstResponder()
-            secondtv.becomeFirstResponder()
-        }else if forthtv.isFirstResponder {
-            self.thirdtv?.text = ""
-            forthtv.resignFirstResponder()
-            thirdtv.becomeFirstResponder()
+
+        if textfieldarray[1].isFirstResponder {
+            textfieldarray[0].text = ""
+            textfieldarray[1].resignFirstResponder()
+            textfieldarray[0].becomeFirstResponder()
+        }else if textfieldarray[2].isFirstResponder{
+            textfieldarray[1].text = ""
+            textfieldarray[2].resignFirstResponder()
+            textfieldarray[1].becomeFirstResponder()
+        }else if textfieldarray[3].isFirstResponder {
+            textfieldarray[2].text = ""
+            textfieldarray[3].resignFirstResponder()
+            textfieldarray[2].becomeFirstResponder()
         }
     }
     
