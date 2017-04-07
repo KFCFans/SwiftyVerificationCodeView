@@ -30,20 +30,24 @@ class SwiftyVerificationCodeView: UIView {
     let width:CGFloat = 50
     
     /// 框框个数
-    let numOfRect = 4
+    var numOfRect = 4
 
-    override init(frame: CGRect) {
+    /// 构造函数
+    ///
+    /// - Parameters:
+    ///   - frame: frame，宽度最好设置为屏幕宽度
+    ///   - num: 框框个数，默认 4 个
+    ///   - margin: 框框之间的间距，默认 10
+    init(frame: CGRect,num:Int = 4,margin:CGFloat = 10) {
         super.init(frame: frame)
         setupUI()
     }
     
-    
+   
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-
 }
 
 // MARK: - UI 相关方法
@@ -53,14 +57,14 @@ extension SwiftyVerificationCodeView{
         
         // 不允许用户直接操作验证码框
         self.isUserInteractionEnabled = false
-        
      
-        let leftmargin = (UIScreen.main.bounds.width - width * 4 - 3 * margin) / 2
+        // 计算左间距
+        let leftmargin = (UIScreen.main.bounds.width - width * CGFloat(numOfRect) - CGFloat(numOfRect - 1) * margin) / 2
         
         // 创建 n个 UITextFiedl
         for i in 0..<numOfRect{
             
-            let rect = CGRect(x: leftmargin + CGFloat(i)*width + CGFloat(i)*margin, y: 10, width: width, height: width)
+            let rect = CGRect(x: leftmargin + CGFloat(i)*width + CGFloat(i)*margin, y: 0, width: width, height: width)
             let tv = createTextField(frame: rect)
             tv.tag = i
             textfieldarray.append(tv)
@@ -101,33 +105,23 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
         
         if !textField.hasText {
             
-            textField.resignFirstResponder()
+            // tag 对应数组下标
+            let index = textField.tag
             
-            switch textField.tag {
-            case 0:
-                textfieldarray[0].text = string
-                textfieldarray[1].becomeFirstResponder()
-                break
-            case 1:
-                textfieldarray[1].text = string
-                textfieldarray[2].becomeFirstResponder()
-                break
-            case 2:
-                textfieldarray[2].text = string
-                textfieldarray[3].becomeFirstResponder()
-                break
-            case 3:
-                textfieldarray[3].text = string
+            textField.resignFirstResponder()
+            if index == numOfRect - 1 {
+                textfieldarray[index].text = string
                 // 拼接结果
                 var code = ""
                 for tv in textfieldarray{
                     code += tv.text ?? ""
                 }
                 delegate?.verificationCodeDidFinishedInput(code: code)
-                
-            default:
                 return false
             }
+            
+            textfieldarray[index].text = string
+            textfieldarray[index + 1].becomeFirstResponder()
             
         }
             return false

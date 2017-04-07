@@ -22,7 +22,5 @@ class SwiftyTextField: UITextField {
         deleteDelegate?.didClickBackWard()
 
     }
-    
-
 
 }
