@@ -99,11 +99,10 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        
-        
         if !textField.hasText {
             
             textField.resignFirstResponder()
+            
             switch textField.tag {
             case 0:
                 textfieldarray[0].text = string
@@ -137,19 +136,16 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
     
     /// 监听键盘删除键
     func didClickBackWard() {
-
-        if textfieldarray[1].isFirstResponder {
-            textfieldarray[0].text = ""
-            textfieldarray[1].resignFirstResponder()
-            textfieldarray[0].becomeFirstResponder()
-        }else if textfieldarray[2].isFirstResponder{
-            textfieldarray[1].text = ""
-            textfieldarray[2].resignFirstResponder()
-            textfieldarray[1].becomeFirstResponder()
-        }else if textfieldarray[3].isFirstResponder {
-            textfieldarray[2].text = ""
-            textfieldarray[3].resignFirstResponder()
-            textfieldarray[2].becomeFirstResponder()
+        
+        for i in 1..<numOfRect{
+            
+            if !textfieldarray[i].isFirstResponder {
+                continue
+            }
+            textfieldarray[i].resignFirstResponder()
+            textfieldarray[i-1].becomeFirstResponder()
+            textfieldarray[i-1].text = ""
+            
         }
     }
     
