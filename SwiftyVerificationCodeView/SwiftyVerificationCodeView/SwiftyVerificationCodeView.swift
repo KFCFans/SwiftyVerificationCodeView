@@ -13,7 +13,7 @@ import UIKit
  */
 
 protocol SwiftyVerificationCodeViewDelegate {
-    func verificationCodeDidFinishedInput(code:String)
+    func verificationCodeDidFinishedInput(verificationCodeView:SwiftyVerificationCodeView,code:String)
 }
 class SwiftyVerificationCodeView: UIView {
     
@@ -46,6 +46,16 @@ class SwiftyVerificationCodeView: UIView {
    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func cleanVerificationCodeView(){
+     
+        for tv in textfieldarray {
+            tv.text = ""
+        }
+        textfieldarray.first?.becomeFirstResponder()
+        
+        
     }
     
 }
@@ -116,7 +126,7 @@ extension SwiftyVerificationCodeView:UITextFieldDelegate,SwiftyTextFieldDeleteDe
                 for tv in textfieldarray{
                     code += tv.text ?? ""
                 }
-                delegate?.verificationCodeDidFinishedInput(code: code)
+                delegate?.verificationCodeDidFinishedInput(verificationCodeView: self, code: code)
                 return false
             }
             

@@ -30,10 +30,13 @@ class ViewController: UIViewController,SwiftyVerificationCodeViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func verificationCodeDidFinishedInput(code: String) {
-        
+    func verificationCodeDidFinishedInput(verificationCodeView: SwiftyVerificationCodeView, code: String) {
         // 登陆逻辑
         showlabel.text = code
+        
+        if code != "4396" {
+            verificationCodeView.cleanVerificationCodeView()
+        }
     }
 
 
