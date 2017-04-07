@@ -14,6 +14,7 @@
 		366112731E969AE8005D0A96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 366112711E969AE8005D0A96 /* LaunchScreen.storyboard */; };
 		3661127C1E969B00005D0A96 /* SwiftyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661127A1E969B00005D0A96 /* SwiftyTextField.swift */; };
 		3661127D1E969B00005D0A96 /* SwiftyVerificationCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3661127B1E969B00005D0A96 /* SwiftyVerificationCodeView.swift */; };
+		3664E1E81E9733F90041259B /* VerificationCode.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3664E1E71E9733F90041259B /* VerificationCode.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		366112741E969AE8005D0A96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3661127A1E969B00005D0A96 /* SwiftyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTextField.swift; sourceTree = "<group>"; };
 		3661127B1E969B00005D0A96 /* SwiftyVerificationCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyVerificationCodeView.swift; sourceTree = "<group>"; };
+		3664E1E71E9733F90041259B /* VerificationCode.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = VerificationCode.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				3661126F1E969AE8005D0A96 /* Assets.xcassets */,
 				366112711E969AE8005D0A96 /* LaunchScreen.storyboard */,
 				366112741E969AE8005D0A96 /* Info.plist */,
+				3664E1E71E9733F90041259B /* VerificationCode.gif */,
 			);
 			path = SwiftyVerificationCodeView;
 			sourceTree = "<group>";
@@ -132,6 +135,7 @@
 			files = (
 				366112731E969AE8005D0A96 /* LaunchScreen.storyboard in Resources */,
 				366112701E969AE8005D0A96 /* Assets.xcassets in Resources */,
+				3664E1E81E9733F90041259B /* VerificationCode.gif in Resources */,
 				3661126E1E969AE8005D0A96 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +312,7 @@
 				366112791E969AE8005D0A96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

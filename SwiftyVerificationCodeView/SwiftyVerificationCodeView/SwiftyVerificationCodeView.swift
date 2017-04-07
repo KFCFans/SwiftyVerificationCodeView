@@ -82,6 +82,7 @@ extension SwiftyVerificationCodeView{
         tv.borderStyle = .line
         tv.textAlignment = .center
         tv.font = UIFont.boldSystemFont(ofSize: 40)
+        tv.textColor = UIColor.init(red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
         tv.delegate = self
         tv.deleteDelegate = self
         addSubview(tv)
